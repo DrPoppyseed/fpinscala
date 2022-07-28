@@ -18,6 +18,24 @@ object MyProgram:
 
     go(n, 0, 1)
 
+  private def formatAbs(x: Int) =
+    val msg = "The absolute value of %d is %d"
+    msg.format(x, abs(x))
+
+  private def formatFactorial(n: Int) =
+    val msg = "The factorial of %d is %d."
+    msg.format(n, factorial(n))
+
+  private def formatFib(n: Int) =
+    val msg = "The %dth fibonacci number is %d."
+    msg.format(n, fib(n))
+
+  @main def print: Unit =
+    println(formatAbs(-42))
+    println(formatFactorial(7))
+    println(formatFib(10))
+
+object PolymorphicFunctions:
   def findFirst[A](as: Array[A], p: A => Boolean): Int =
     @annotation.tailrec
     def loop(n: Int): Int =
@@ -39,19 +57,12 @@ object MyProgram:
   def partial1[A, B, C](a: A, f: (A, B) => C): B => C =
     (b: B) => f(a, b)
 
-  private def formatAbs(x: Int) =
-    val msg = "The absolute value of %d is %d"
-    msg.format(x, abs(x))
+  def curry[A, B, C](f: (A, B) => C): A => (B => C) =
+    (a: A) => (b: B) => f(a, b)
 
-  private def formatFactorial(n: Int) =
-    val msg = "The factorial of %d is %d."
-    msg.format(n, factorial(n))
+  def uncurry[A, B, C](f: A => B => C): (A, B) => C =
+    (a: A, b: B) => f(a)(b)
 
-  private def formatFib(n: Int) =
-    val msg = "The %dth fibonacci number is %d."
-    msg.format(n, fib(n))
+  def compose[A, B, C](f: B => C, g: A => B): A => C =
+    (a: A) => f(g(a))
 
-  @main def printAbsAndFactorial: Unit =
-    println(formatAbs(-42))
-    println(formatFactorial(7))
-    println(formatFib(10))
