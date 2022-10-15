@@ -119,3 +119,6 @@ object List:
     case (_, Nil) => Nil
     case (Nil, _) => Nil
     case (Cons(hl, tl), Cons(hr, tr)) => Cons(f(hl, hr), zipWith(tl, tr, f))
+
+//  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
+//
